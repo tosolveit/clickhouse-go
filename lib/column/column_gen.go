@@ -175,6 +175,10 @@ func (t Type) Column(name string, tz *time.Location) (Interface, error) {
 		return Enum(t, name)
 	case strings.HasPrefix(string(t), "DateTime64"):
 		return (&DateTime64{name: name}).parse(t, tz)
+	case strings.HasPrefix(strType, "Time64"):
+		return (&Time64{name: name}).parse(t, tz)
+	case strType == "Time":
+		return (&Time{name: name}).parse(t, tz)
 	case strings.HasPrefix(strType, "DateTime") && !strings.HasPrefix(strType, "DateTime64"):
 		return (&DateTime{name: name}).parse(t, tz)
 	}
